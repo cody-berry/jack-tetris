@@ -1,0 +1,14 @@
+class Main {
+	function void main() {
+		// Setup:
+		// Prepare the game. Unlike in p5-tetris, there are no modes here. 
+
+		// Algorithm 1: Display the game and wait a few milliseconds in a while true loop.
+
+
+		// Algorithm 2: 
+		return;
+	}
+}
+
+
