@@ -1,7 +1,9 @@
 class Main {
 	function void main() {
+		var Game game;
 		// Setup:
 		// Prepare the game. Unlike in p5-tetris, there are no modes here. 
+		let game = Game.new(10);
 
 		// Algorithm 1: Display the game and wait a few milliseconds in a while true loop.
 
