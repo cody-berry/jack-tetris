@@ -10,19 +10,7 @@ class Main {
 		// repeat forever
 		while (true) {
 			// display the game
-			// black background
-			do Screen.setColor(true);
-			do Screen.drawRectangle(0, 0, 511, 255);
-
-			// outline of the grid: displays a little bit over where it's supposed to start at,
-			// 206, 10, to a little bit over where it's supposed to end at, 306, 210. note that
-			// this will be moved to Game very soon and it will be more explanable
-			do Screen.setColor(false);
-			do Screen.drawRectangle(201, 5, 311, 215);
-
-			// now we display the actual grid
-			do Screen.setColor(true);
-			do Screen.drawRectangle(206, 10, 306, 210);
+			do game.display();
 			
 			// wait a little bit
 			do Sys.wait(100);
