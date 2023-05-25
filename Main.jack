@@ -5,8 +5,30 @@ class Main {
 
 		// Algorithm 1: Display the game and wait a few milliseconds in a while true loop.
 
+		// repeat forever
+		while (true) {
+			// display the game
+			// black background
+			do Screen.setColor(true);
+			do Screen.drawRectangle(0, 0, 511, 255);
 
-		// Algorithm 2: 
+			// outline of the grid: displays a little bit over where it's supposed to start at,
+			// 206, 10, to a little bit over where it's supposed to end at, 306, 210. note that
+			// this will be moved to Game very soon and it will be more explanable
+			do Screen.setColor(false);
+			do Screen.drawRectangle(201, 5, 311, 215);
+
+			// now we display the actual grid
+			do Screen.setColor(true);
+			do Screen.drawRectangle(206, 10, 306, 210);
+			
+			// wait a little bit
+			do Sys.wait(100);
+		}
+
+		// Algorithm 2: In a while true loop, use the Square Dance algorithm for detecting
+		// keypresses to figure out what move to do. 
+
 		return;
 	}
 }
