@@ -4,7 +4,11 @@ class Game {
 	field int tileSize; // the size of each tile
 	field int startingX, startingY; // the top-left corner of the grid
 
-	// the columns of the field that contains all the blocks
+	// the columns of the field that contains all the blocks. note that we can't
+	// use nested arrays because we can't do something like:
+	// let playingField[0][0] = 1;
+	// due to lack of nested arrays. we use 10 columns because a standard Tetris
+	// game is a 10x20 grid
 	field Array col1, col2, col3, col4, col5, col6, col7, col8, col9, col10; 
 
 	// the number of frames until down default, which is not affected by the down key
@@ -17,6 +21,7 @@ class Game {
 	field int framesUntilDownCurrent;
 
 	constructor Game new(int tileSizeArg) {
+		var int i;
 		// assign tileSize
 		let tileSize = tileSizeArg;
 
@@ -32,24 +37,100 @@ class Game {
 		let framesUntilDown = 70;
 		let framesUntilDownCurrent = 70;
 
+		// initialize the playing field
+		let col1 = Array.new(20);
+		let col2 = Array.new(20);
+		let col3 = Array.new(20);
+		let col4 = Array.new(20);
+		let col5 = Array.new(20);
+		let col6 = Array.new(20);
+		let col7 = Array.new(20);
+		let col8 = Array.new(20);
+		let col9 = Array.new(20);
+		let col10 = Array.new(20);
+
+		// now set each cell to 0
+		let i = 0;
+		while (i < 10) {
+			let col1[i] = 0;
+			let col2[i] = 0;
+			let col3[i] = 0;
+			let col4[i] = 0;
+			let col5[i] = 0;
+			let col6[i] = 0;
+			let col7[i] = 0;
+			let col8[i] = 0;
+			let col9[i] = 0;
+			let col10[i] = 0;
+			let i = i + 1;
+		}
+
 		return this;
 	}
 
 	// displays all parts of the game and handles moving down every few frames
 	method void display() {
+		var int row;
+
 		// black background
 		do Screen.setColor(true);
 		do Screen.drawRectangle(0, 0, 511, 255);
 
 		// outline of the grid: displays a little bit over where it's supposed to start at,
-		// 206, 10, to a little bit over where it's supposed to end at, 306, 210. note that
-		// this will be moved to Game very soon and it will be more explanable
+		// startingX, startingY, to a little bit over that, with more tileSizes and a 
+		// padding of 5. 
 		do Screen.setColor(false);
-		do Screen.drawRectangle(201, 5, 311, 215);
+		do Screen.drawRectangle(startingX - 5, startingY - 5, startingX + (10*tileSize) + 5, 
+			                    startingY + 5 + (20*tileSize));
 
 		// now we display the actual grid
 		do Screen.setColor(true);
-		do Screen.drawRectangle(206, 10, 306, 210);
+		do Screen.drawRectangle(startingX, startingY, startingX + (10*tileSize), 
+			                    startingY + (20*tileSize));
+
+		// define the row that we're on
+		let row = 0;
+
+		// since we're displaying white cells, we set the color to white
+		do Screen.setColor(false);
+
+		// iterate through each row, which is basically each cell because there are 
+		// individual columns already defined due to lack of nested arrays in Jack
+		while (row < 20) {
+			if (col1[row] = 0) { // display a white cell if the cell isn't already taken
+				do Screen.drawRectangle(startingX + (0*tileSize) + 1, startingY + (tileSize*row) + 1, startingX + tileSize + (0*tileSize) - 1, startingY + tileSize + (tileSize*row) - 1);
+			}
+			if (col2[row] = 0) { // repeat for the rest, except 1 tileSize to the right
+				do Screen.drawRectangle(startingX + (1*tileSize) + 1, startingY + (tileSize*row) + 1, startingX + tileSize + (1*tileSize) - 1, startingY + tileSize + (tileSize*row) - 1);
+			}
+			if (col3[row] = 0) { 
+				do Screen.drawRectangle(startingX + (2*tileSize) + 1, startingY + (tileSize*row) + 1, startingX + tileSize + (2*tileSize) - 1, startingY + tileSize + (tileSize*row) - 1);
+			}
+			if (col4[row] = 0) { 
+				do Screen.drawRectangle(startingX + (3*tileSize) + 1, startingY + (tileSize*row) + 1, startingX + tileSize + (3*tileSize) - 1, startingY + tileSize + (tileSize*row) - 1);
+			}
+			if (col5[row] = 0) { 
+				do Screen.drawRectangle(startingX + (4*tileSize) + 1, startingY + (tileSize*row) + 1, startingX + tileSize + (4*tileSize) - 1, startingY + tileSize + (tileSize*row) - 1);
+			}
+			if (col6[row] = 0) { 
+				do Screen.drawRectangle(startingX + (5*tileSize) + 1, startingY + (tileSize*row) + 1, startingX + tileSize + (5*tileSize) - 1, startingY + tileSize + (tileSize*row) - 1);
+			}
+			if (col7[row] = 0) { 
+				do Screen.drawRectangle(startingX + (6*tileSize) + 1, startingY + (tileSize*row) + 1, startingX + tileSize + (6*tileSize) - 1, startingY + tileSize + (tileSize*row) - 1);
+			}
+			if (col8[row] = 0) {
+				do Screen.drawRectangle(startingX + (7*tileSize) + 1, startingY + (tileSize*row) + 1, startingX + tileSize + (7*tileSize) - 1, startingY + tileSize + (tileSize*row) - 1);
+			}
+			if (col9[row] = 0) {
+				do Screen.drawRectangle(startingX + (8*tileSize) + 1, startingY + (tileSize*row) + 1, startingX + tileSize + (8*tileSize) - 1, startingY + tileSize + (tileSize*row) - 1);
+			}
+			if (col10[row] = 0) {
+				do Screen.drawRectangle(startingX + (9*tileSize) + 1, startingY + (tileSize*row) + 1, startingX + tileSize + (9*tileSize) - 1, startingY + tileSize + (tileSize*row) - 1);
+			}
+
+			// increment the row
+			let row = row + 1;
+		}
 
 		return;
 	}
