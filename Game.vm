@@ -142,6 +142,198 @@ add
 pop local 0
 goto WHILE_EXP0
 label WHILE_END0
+push constant 0
+push this 3
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 1
+push this 3
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 2
+push this 3
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 17
+push this 3
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 18
+push this 3
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 19
+push this 3
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 0
+push this 4
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 1
+push this 4
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 18
+push this 4
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 19
+push this 4
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 0
+push this 5
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 19
+push this 5
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 0
+push this 10
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 19
+push this 10
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 0
+push this 11
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 1
+push this 11
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 18
+push this 11
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 19
+push this 11
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 0
+push this 12
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 1
+push this 12
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 2
+push this 12
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 17
+push this 12
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 18
+push this 12
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 19
+push this 12
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
 push pointer 0
 return
 function Game.display 1
