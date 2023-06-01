@@ -20,6 +20,12 @@ class Game {
 	// handles the number of frames until the next down that decrements every frame
 	field int framesUntilDownCurrent;
 
+	// handles all the pieces
+	field int piecesList;
+
+	// handles the next piece index. is incremented on every display. 
+	field int nextPieceIndex;
+
 	constructor Game new(int tileSizeArg) {
 		var int i;
 		// assign tileSize
@@ -65,6 +71,7 @@ class Game {
 			let i = i + 1;
 		}
 
+		// this creates all 4 corners just for testing display or checkBorders()
 		let col1[0] = 1;
 		let col1[1] = 1;
 		let col1[2] = 1;
@@ -89,6 +96,15 @@ class Game {
 		let col10[17] = 1; 
 		let col10[18] = 1;
 		let col10[19] = 1;
+
+		let piecesList = [ // nested arrays here are fine because we're not setting parts of it
+			[[-1, 0] /* x diff, y diff*/, [0, 0] /* 0, 0 means center */, [1, 0], [2, 0]], /* i block */
+			[[-1, -1], [0, -1], [1, -1], [1, 0]], /* j block (j and l blocks are special in that their center
+			                                                 isn't part of the piece) */
+			[[-1, 0], [-1, -1], [0, -1], [1, -1]], /* l block */
+			[[-1, 0], [0, 0], [0, 1], [1, 1]], /* s block */
+			[[]]
+		];
 
 		return this;
 	}
