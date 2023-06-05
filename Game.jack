@@ -21,13 +21,28 @@ class Game {
 	field int framesUntilDownCurrent;
 
 	// handles all the pieces
-	field int piecesList;
+	field Array piecesList;
 
 	// handles the next piece index. is incremented on every display. 
 	field int nextPieceIndex;
 
+	// handles the current piece itself.
+	field Array currentPiece;
+
+	// holds the current piece position
+	field int currentPiecePosX, currentPiecePosY;
+
 	constructor Game new(int tileSizeArg) {
 		var int i;
+		var Array iBlock, jBlock, lBlock, sBlock, zBlock, oBlock, tBlock;
+		var Array iBlock1, iBlock2, iBlock3, iBlock4;
+		var Array jBlock1, jBlock2, jBlock3, jBlock4;
+		var Array lBlock1, lBlock2, lBlock3, lBlock4;
+		var Array sBlock1, sBlock2, sBlock3, sBlock4;
+		var Array zBlock1, zBlock2, zBlock3, zBlock4;
+		var Array oBlock1, oBlock2, oBlock3, oBlock4;
+		var Array tBlock1, tBlock2, tBlock3, tBlock4;
+
 		// assign tileSize
 		let tileSize = tileSizeArg;
 
@@ -97,21 +112,163 @@ class Game {
 		let col10[18] = 1;
 		let col10[19] = 1;
 
-		let piecesList = [ // nested arrays here are fine because we're not setting parts of it
-			[[-1, 0] /* x diff, y diff*/, [0, 0] /* 0, 0 means center */, [1, 0], [2, 0]], /* i block */
-			[[-1, -1], [0, -1], [1, -1], [1, 0]], /* j block (j and l blocks are special in that their center
-			                                                 isn't part of the piece) */
-			[[-1, 0], [-1, -1], [0, -1], [1, -1]], /* l block */
-			[[-1, 0], [0, 0], [0, 1], [1, 1]], /* s block */
-			[[]]
-		];
+		let piecesList = Array.new(7);
+
+		// nested arrays here are fine because we're not setting parts of it. we're
+		// just iterating through it. note that it's tedious becaus we have to set
+		// each part of the array.
+		let iBlock = Array.new(4);
+		let lBlock = Array.new(4);
+		let jBlock = Array.new(4);
+		let sBlock = Array.new(4);
+		let zBlock = Array.new(4);
+		let oBlock = Array.new(4);
+		let tBlock = Array.new(4);
+
+		// {piece}Block{num} means the x and y diff between the center
+		// of the piece and the {num}ᵗʰ block of {piece}.
+		let iBlock1 = Array.new(2);
+		let iBlock2 = Array.new(2);
+		let iBlock3 = Array.new(2);
+		let iBlock4 = Array.new(2);
+
+		let lBlock1 = Array.new(2);
+		let lBlock2 = Array.new(2);
+		let lBlock3 = Array.new(2);
+		let lBlock4 = Array.new(2);
+
+		let jBlock1 = Array.new(2);
+		let jBlock2 = Array.new(2);
+		let jBlock3 = Array.new(2);
+		let jBlock4 = Array.new(2);
+
+		let sBlock1 = Array.new(2);
+		let sBlock2 = Array.new(2);
+		let sBlock3 = Array.new(2);
+		let sBlock4 = Array.new(2);
+
+		let zBlock1 = Array.new(2);
+		let zBlock2 = Array.new(2);
+		let zBlock3 = Array.new(2);
+		let zBlock4 = Array.new(2);
+
+		let oBlock1 = Array.new(2);
+		let oBlock2 = Array.new(2);
+		let oBlock3 = Array.new(2);
+		let oBlock4 = Array.new(2);
+
+		let tBlock1 = Array.new(2);
+		let tBlock2 = Array.new(2);
+		let tBlock3 = Array.new(2);
+		let tBlock4 = Array.new(2);
+
+		let iBlock1[0] = -1;
+		let iBlock1[1] = 0;
+		let iBlock2[0] = 0;
+		let iBlock2[1] = 0;
+		let iBlock3[0] = 1;
+		let iBlock3[1] = 0;
+		let iBlock4[0] = 2;
+		let iBlock4[1] = 0;
+		let lBlock1[0] = -1;
+		let lBlock1[1] = -1;
+		let lBlock2[0] = 0;
+		let lBlock2[1] = -1;
+		let lBlock3[0] = 1;
+		let lBlock3[1] = -1;
+		let lBlock4[0] = 1;
+		let lBlock4[1] = 0;
+		let jBlock1[0] = -1;
+		let jBlock1[1] = 0;
+		let jBlock2[0] = -1;
+		let jBlock2[1] = -1;
+		let jBlock3[0] = 0;
+		let jBlock3[1] = -1;
+		let jBlock4[0] = 1;
+		let jBlock4[1] = -1;
+		let sBlock1[0] = -1;
+		let sBlock1[1] = 0;
+		let sBlock2[0] = 0;
+		let sBlock2[1] = 0;
+		let sBlock3[0] = 0;
+		let sBlock3[1] = 1;
+		let sBlock4[0] = 1;
+		let sBlock4[1] = 1;
+		let zBlock1[0] = -1;
+		let zBlock1[1] = 1;
+		let zBlock2[0] = 0;
+		let zBlock2[1] = 1;
+		let zBlock3[0] = 0;
+		let zBlock3[1] = 0;
+		let zBlock4[0] = 1;
+		let zBlock4[1] = 0;
+		let oBlock1[0] = -1;
+		let oBlock1[1] = 0;
+		let oBlock2[0] = -1;
+		let oBlock2[1] = 1;
+		let oBlock3[0] = 0;
+		let oBlock3[1] = 0;
+		let oBlock4[0] = 0;
+		let oBlock4[1] = 1;
+		let tBlock1[0] = -1;
+		let tBlock1[1] = 0;
+		let tBlock2[0] = 0;
+		let tBlock2[1] = 0;
+		let tBlock3[0] = 0;
+		let tBlock3[1] = 1;
+		let tBlock4[0] = 1;
+		let tBlock4[1] = 0;
+
+		let iBlock[0] = iBlock1;
+		let iBlock[1] = iBlock2;
+		let iBlock[2] = iBlock3;
+		let iBlock[3] = iBlock4;
+		let lBlock[0] = lBlock1;
+		let lBlock[1] = lBlock2;
+		let lBlock[2] = lBlock3;
+		let lBlock[3] = lBlock4;
+		let jBlock[0] = jBlock1;
+		let jBlock[1] = jBlock2;
+		let jBlock[2] = jBlock3;
+		let jBlock[3] = jBlock4;
+		let sBlock[0] = sBlock1;
+		let sBlock[1] = sBlock2;
+		let sBlock[2] = sBlock3;
+		let sBlock[3] = sBlock4;
+		let zBlock[0] = zBlock1;
+		let zBlock[1] = zBlock2;
+		let zBlock[2] = zBlock3;
+		let zBlock[3] = zBlock4;
+		let oBlock[0] = oBlock1;
+		let oBlock[1] = oBlock2;
+		let oBlock[2] = oBlock3;
+		let oBlock[3] = oBlock4;
+		let tBlock[0] = tBlock1;
+		let tBlock[1] = tBlock2;
+		let tBlock[2] = tBlock3;
+		let tBlock[3] = tBlock4;
+
+		let piecesList[0] = iBlock;
+		let piecesList[1] = lBlock;
+		let piecesList[2] = jBlock;
+		let piecesList[3] = sBlock;
+		let piecesList[4] = zBlock;
+		let piecesList[5] = oBlock;
+		let piecesList[6] = tBlock;
+
+		let currentPiece = piecesList[0];
+
+		let currentPiecePosX = 4;
+
+		let currentPiecePosY = 1;
 
 		return this;
 	}
 
 	// displays all parts of the game and handles moving down every few frames
 	method void display() {
-		var int row;
+		var int row, i, xPos, yPos;
+		var Array currentOffset;
 
 		// black background
 		do Screen.setColor(true);
@@ -171,6 +328,34 @@ class Game {
 
 			// increment the row
 			let row = row + 1;
+		}
+
+		// iterate through every offset in the list
+		let i = 0;
+
+		while (i < 4) {
+			// for every offset, display it
+			let currentOffset = currentPiece[i];
+
+			// calculate the x position, the current piece x center plus the offset
+			let xPos = currentPiecePosX + currentOffset[0]
+
+			// calculate the y position, the current piece y center plus the offset
+			let yPos = currentPiecePosY + currentOffset[1]
+
+			// display it!
+			do Screen.drawRectangle(
+				// the starting x position plus the tileSize times the xPos. note that it is 0-indexed
+				startingX + (xPos*tileSize), 
+				// same for y
+				startingY + (yPos*tilesize),
+				// now this time we repeat but one tileSize more
+				startingX + (xPos*tileSize) + tileSize,
+				startingY + (yPos*tileSize) + tileSize
+				)
+
+			let i = i + 1;
+
 		}
 
 		return;
