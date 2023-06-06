@@ -256,7 +256,7 @@ class Game {
 		let piecesList[5] = oBlock;
 		let piecesList[6] = tBlock;
 
-		let currentPiece = piecesList[0];
+		let currentPiece = piecesList[3];
 
 		let currentPiecePosX = 4;
 
@@ -333,26 +333,29 @@ class Game {
 		// iterate through every offset in the list
 		let i = 0;
 
+		// we're drawing black now
+		do Screen.setColor(true);
+
 		while (i < 4) {
 			// for every offset, display it
 			let currentOffset = currentPiece[i];
 
 			// calculate the x position, the current piece x center plus the offset
-			let xPos = currentPiecePosX + currentOffset[0]
+			let xPos = currentPiecePosX + currentOffset[0];
 
 			// calculate the y position, the current piece y center plus the offset
-			let yPos = currentPiecePosY + currentOffset[1]
+			let yPos = currentPiecePosY + currentOffset[1];
 
 			// display it!
 			do Screen.drawRectangle(
 				// the starting x position plus the tileSize times the xPos. note that it is 0-indexed
 				startingX + (xPos*tileSize), 
 				// same for y
-				startingY + (yPos*tilesize),
+				startingY + (yPos*tileSize),
 				// now this time we repeat but one tileSize more
 				startingX + (xPos*tileSize) + tileSize,
 				startingY + (yPos*tileSize) + tileSize
-				)
+				);
 
 			let i = i + 1;
 
