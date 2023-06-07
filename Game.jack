@@ -267,8 +267,7 @@ class Game {
 
 	// displays all parts of the game and handles moving down every few frames
 	method void display() {
-		var int row, i, xPos, yPos;
-		var Array currentOffset;
+		var int row;
 
 		// black background
 		do Screen.setColor(true);
@@ -330,6 +329,14 @@ class Game {
 			let row = row + 1;
 		}
 
+		return;
+	}
+
+	// draw the current figure
+	method void displayCurrentFigure() {
+		var int i, xPos, yPos;
+		var Array currentOffset;
+
 		// iterate through every offset in the list
 		let i = 0;
 
@@ -358,9 +365,56 @@ class Game {
 				);
 
 			let i = i + 1;
-
 		}
+		return;
+	}
 
+	// erase the current figure
+	method void eraseCurrentFigure() {
+		var int i, xPos, yPos;
+		var Array currentOffset;
+
+		// iterate through every offset in the list
+		let i = 0;
+
+		// we're drawing white now
+		do Screen.setColor(false);
+
+		while (i < 4) {
+			// for every offset, display it
+			let currentOffset = currentPiece[i];
+
+			// calculate the x position, the current piece x center plus the offset
+			let xPos = currentPiecePosX + currentOffset[0];
+
+			// calculate the y position, the current piece y center plus the offset
+			let yPos = currentPiecePosY + currentOffset[1];
+
+			// display it!
+			do Screen.drawRectangle(
+				// the starting x position plus the tileSize times the xPos. note that it is 0-indexed
+				startingX + (xPos*tileSize) + 1, 
+				// same for y
+				startingY + (yPos*tileSize) + 1,
+				// now this time we repeat but one tileSize more
+				startingX + (xPos*tileSize) + tileSize - 1,
+				startingY + (yPos*tileSize) + tileSize - 1
+				);
+
+			let i = i + 1;
+		}
+		return;
+	}
+
+	// move the current figure left
+	method void moveLeft() {
+		let currentPiecePosX = currentPiecePosX - 1;
+		return;
+	}
+
+	// move the current figure right
+	method void moveRight() {
+		let currentPiecePosX = currentPiecePosX + 1;
 		return;
 	}
 }
