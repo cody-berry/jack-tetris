@@ -50,9 +50,9 @@ class Game {
 		// the starting y is the tileSize
 		let startingY = tileSize;
 
-		// the number of frames until the next moveDown starts at 35
-		let framesUntilDownDefault = 35;
-		let framesUntilDown = 35;
+		// the number of frames until the next moveDown starts at 20
+		let framesUntilDownDefault = 20;
+		let framesUntilDown = 20;
 
 		// initialize the playing field
 		let col1 = Array.new(20);
@@ -325,12 +325,15 @@ class Game {
 			let row = row + 1;
 		}
 
-		let framesUntilDown = framesUntilDown - 1;
+		return;
+	}
 
-		if (framesUntilDown < 0) {
-			let framesUntilDown = framesUntilDownDefault;
+	// moves current piece down by one tile
+	method void moveDown() {
+		let currentPiecePosY = currentPiecePosY + 1;
+		if (~(checkBorders())) {
+			let currentPiecePosY = currentPiecePosY - 1;
 		}
-
 		return;
 	}
 
@@ -368,6 +371,16 @@ class Game {
 
 			let i = i + 1;
 		}
+
+		let framesUntilDown = framesUntilDown - 1;
+
+		if (framesUntilDown < 0) {
+			let framesUntilDown = framesUntilDownDefault;
+			do eraseCurrentFigure();
+			do moveDown();
+			do displayCurrentFigure();
+		}
+
 		return;
 	}
 

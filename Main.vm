@@ -70,6 +70,15 @@ label IF_TRUE1
 push constant 132
 pop local 2
 label IF_FALSE1
+push local 1
+push constant 133
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 133
+pop local 2
+label IF_FALSE2
 push local 0
 call Game.display 1
 pop temp 0
@@ -86,9 +95,9 @@ pop temp 0
 push local 2
 push constant 130
 eq
-if-goto IF_TRUE2
-goto IF_FALSE2
-label IF_TRUE2
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
 push local 0
 call Game.eraseCurrentFigure 1
 pop temp 0
@@ -98,13 +107,13 @@ pop temp 0
 push local 0
 call Game.displayCurrentFigure 1
 pop temp 0
-label IF_FALSE2
+label IF_FALSE3
 push local 2
 push constant 132
 eq
-if-goto IF_TRUE3
-goto IF_FALSE3
-label IF_TRUE3
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
 push local 0
 call Game.eraseCurrentFigure 1
 pop temp 0
@@ -114,7 +123,23 @@ pop temp 0
 push local 0
 call Game.displayCurrentFigure 1
 pop temp 0
-label IF_FALSE3
+label IF_FALSE4
+push local 2
+push constant 133
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push local 0
+call Game.eraseCurrentFigure 1
+pop temp 0
+push local 0
+call Game.moveDown 1
+pop temp 0
+push local 0
+call Game.displayCurrentFigure 1
+pop temp 0
+label IF_FALSE5
 push constant 100
 call Sys.wait 1
 pop temp 0

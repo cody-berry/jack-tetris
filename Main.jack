@@ -51,6 +51,9 @@ class Main {
 			// up: set the piece in place
 
 			// down: make the piece go faster downwards
+			if (key = 133) {
+				let direction = 133;
+			}
 
 			// while the key is the same...
 			do game.display();
@@ -72,6 +75,11 @@ class Main {
 				}
 
 				// if the direction is down, move down and display
+				if (direction = 133) {
+					do game.eraseCurrentFigure();
+					do game.moveDown();
+					do game.displayCurrentFigure();
+				}
 
 				do Sys.wait(100);
 			}

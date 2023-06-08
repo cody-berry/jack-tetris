@@ -1,5 +1,5 @@
 function Game.new 36
-push constant 21
+push constant 20
 call Memory.alloc 1
 pop pointer 0
 push argument 0
@@ -12,12 +12,10 @@ sub
 pop this 1
 push this 0
 pop this 2
-push constant 70
+push constant 20
 pop this 13
-push constant 70
+push constant 20
 pop this 14
-push constant 70
-pop this 15
 push constant 20
 call Array.new 1
 pop this 3
@@ -336,7 +334,7 @@ push temp 0
 pop that 0
 push constant 7
 call Array.new 1
-pop this 16
+pop this 15
 push constant 4
 call Array.new 1
 pop local 1
@@ -1130,7 +1128,7 @@ pop pointer 1
 push temp 0
 pop that 0
 push constant 0
-push this 16
+push this 15
 add
 push local 1
 pop temp 0
@@ -1138,7 +1136,7 @@ pop pointer 1
 push temp 0
 pop that 0
 push constant 1
-push this 16
+push this 15
 add
 push local 3
 pop temp 0
@@ -1146,7 +1144,7 @@ pop pointer 1
 push temp 0
 pop that 0
 push constant 2
-push this 16
+push this 15
 add
 push local 2
 pop temp 0
@@ -1154,7 +1152,7 @@ pop pointer 1
 push temp 0
 pop that 0
 push constant 3
-push this 16
+push this 15
 add
 push local 4
 pop temp 0
@@ -1162,7 +1160,7 @@ pop pointer 1
 push temp 0
 pop that 0
 push constant 4
-push this 16
+push this 15
 add
 push local 5
 pop temp 0
@@ -1170,7 +1168,7 @@ pop pointer 1
 push temp 0
 pop that 0
 push constant 5
-push this 16
+push this 15
 add
 push local 6
 pop temp 0
@@ -1178,7 +1176,7 @@ pop pointer 1
 push temp 0
 pop that 0
 push constant 6
-push this 16
+push this 15
 add
 push local 7
 pop temp 0
@@ -1186,15 +1184,15 @@ pop pointer 1
 push temp 0
 pop that 0
 push constant 3
-push this 16
+push this 15
 add
 pop pointer 1
 push that 0
-pop this 18
+pop this 17
 push constant 4
-pop this 19
+pop this 18
 push constant 1
-pop this 20
+pop this 19
 push pointer 0
 return
 function Game.display 1
@@ -1722,6 +1720,26 @@ goto WHILE_EXP0
 label WHILE_END0
 push constant 0
 return
+function Game.moveDown 0
+push argument 0
+pop pointer 0
+push this 19
+push constant 1
+add
+pop this 19
+push pointer 0
+call Game.checkBorders 1
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 19
+push constant 1
+sub
+pop this 19
+label IF_FALSE0
+push constant 0
+return
 function Game.displayCurrentFigure 4
 push argument 0
 pop pointer 0
@@ -1738,12 +1756,12 @@ lt
 not
 if-goto WHILE_END0
 push local 0
-push this 18
+push this 17
 add
 pop pointer 1
 push that 0
 pop local 3
-push this 19
+push this 18
 push constant 0
 push local 3
 add
@@ -1751,7 +1769,7 @@ pop pointer 1
 push that 0
 add
 pop local 1
-push this 20
+push this 19
 push constant 1
 push local 3
 add
@@ -1791,6 +1809,28 @@ add
 pop local 0
 goto WHILE_EXP0
 label WHILE_END0
+push this 14
+push constant 1
+sub
+pop this 14
+push this 14
+push constant 0
+lt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 13
+pop this 14
+push pointer 0
+call Game.eraseCurrentFigure 1
+pop temp 0
+push pointer 0
+call Game.moveDown 1
+pop temp 0
+push pointer 0
+call Game.displayCurrentFigure 1
+pop temp 0
+label IF_FALSE0
 push constant 0
 return
 function Game.eraseCurrentFigure 4
@@ -1808,12 +1848,12 @@ lt
 not
 if-goto WHILE_END0
 push local 0
-push this 18
+push this 17
 add
 pop pointer 1
 push that 0
 pop local 3
-push this 19
+push this 18
 push constant 0
 push local 3
 add
@@ -1821,7 +1861,7 @@ pop pointer 1
 push that 0
 add
 pop local 1
-push this 20
+push this 19
 push constant 1
 push local 3
 add
@@ -1874,40 +1914,40 @@ return
 function Game.moveLeft 0
 push argument 0
 pop pointer 0
-push this 19
+push this 18
 push constant 1
 sub
-pop this 19
+pop this 18
 push pointer 0
 call Game.checkBorders 1
 not
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
-push this 19
+push this 18
 push constant 1
 add
-pop this 19
+pop this 18
 label IF_FALSE0
 push constant 0
 return
 function Game.moveRight 0
 push argument 0
 pop pointer 0
-push this 19
+push this 18
 push constant 1
 add
-pop this 19
+pop this 18
 push pointer 0
 call Game.checkBorders 1
 not
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
-push this 19
+push this 18
 push constant 1
 sub
-pop this 19
+pop this 18
 label IF_FALSE0
 push constant 0
 return
@@ -1923,12 +1963,12 @@ lt
 not
 if-goto WHILE_END0
 push local 1
-push this 18
+push this 17
 add
 pop pointer 1
 push that 0
 pop local 0
-push this 19
+push this 18
 push constant 0
 push local 0
 add
@@ -1936,7 +1976,7 @@ pop pointer 1
 push that 0
 add
 pop local 2
-push this 20
+push this 19
 push constant 1
 push local 0
 add
@@ -1950,10 +1990,10 @@ lt
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
-push this 19
+push this 18
 push constant 1
 add
-pop this 19
+pop this 18
 push local 2
 push constant 1
 add
@@ -1968,10 +2008,10 @@ gt
 if-goto IF_TRUE1
 goto IF_FALSE1
 label IF_TRUE1
-push this 19
+push this 18
 push constant 1
 sub
-pop this 19
+pop this 18
 push local 2
 push constant 1
 sub
