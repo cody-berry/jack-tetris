@@ -54,10 +54,8 @@ class Main {
 
 			// while the key is the same...
 			do game.display();
-			do game.displayCurrentFigure();
 			while (Memory.peek(24576) = key) {
-				do Sys.wait(100);
-
+				do game.displayCurrentFigure();
 				// check direction
 				// if the direction is left, move left and display
 				if (direction = 130) {
@@ -74,7 +72,8 @@ class Main {
 				}
 
 				// if the direction is down, move down and display
-				let framesUntilNextMove = 7;
+
+				do Sys.wait(100);
 			}
 		}
 		return;

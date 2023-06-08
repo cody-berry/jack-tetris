@@ -73,9 +73,6 @@ label IF_FALSE1
 push local 0
 call Game.display 1
 pop temp 0
-push local 0
-call Game.displayCurrentFigure 1
-pop temp 0
 label WHILE_EXP2
 push constant 24576
 call Memory.peek 1
@@ -83,8 +80,8 @@ push local 1
 eq
 not
 if-goto WHILE_END2
-push constant 100
-call Sys.wait 1
+push local 0
+call Game.displayCurrentFigure 1
 pop temp 0
 push local 2
 push constant 130
@@ -118,8 +115,9 @@ push local 0
 call Game.displayCurrentFigure 1
 pop temp 0
 label IF_FALSE3
-push constant 7
-pop local 3
+push constant 100
+call Sys.wait 1
+pop temp 0
 goto WHILE_EXP2
 label WHILE_END2
 goto WHILE_EXP0

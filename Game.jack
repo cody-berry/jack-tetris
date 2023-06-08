@@ -11,14 +11,11 @@ class Game {
 	// game is a 10x20 grid
 	field Array col1, col2, col3, col4, col5, col6, col7, col8, col9, col10; 
 
-	// the number of frames until down default, which is not affected by the down key
+	// the number of frames until the next down default
 	field int framesUntilDownDefault;
 
-	// the number of frames until down normally, which is affected by the down key
+	// the number of frames until the next moveDown()
 	field int framesUntilDown;
-
-	// handles the number of frames until the next down that decrements every frame
-	field int framesUntilDownCurrent;
 
 	// handles all the pieces
 	field Array piecesList;
@@ -53,10 +50,9 @@ class Game {
 		// the starting y is the tileSize
 		let startingY = tileSize;
 
-		// the number of frames until the next moveDown starts at 70
-		let framesUntilDownDefault = 70;
-		let framesUntilDown = 70;
-		let framesUntilDownCurrent = 70;
+		// the number of frames until the next moveDown starts at 35
+		let framesUntilDownDefault = 35;
+		let framesUntilDown = 35;
 
 		// initialize the playing field
 		let col1 = Array.new(20);
@@ -329,6 +325,12 @@ class Game {
 			let row = row + 1;
 		}
 
+		let framesUntilDown = framesUntilDown - 1;
+
+		if (framesUntilDown < 0) {
+			let framesUntilDown = framesUntilDownDefault;
+		}
+
 		return;
 	}
 
@@ -430,7 +432,7 @@ class Game {
 	method boolean checkBorders() {
 		var Array currentOffset;
 		var int i, xPos, yPos;
-
+		var Array colToCheck;
 
 		let i = 0;
 		while (i < 4) {
@@ -454,6 +456,46 @@ class Game {
 				let xPos = xPos - 1;
 				return checkBorders();
 			}
+
+			// if none of those errors are there, then we check the
+			// playing field. but we first have to check which column
+			// we're checking.
+			if (xPos = 0) {
+				let colToCheck = col1;
+			}
+			if (xPos = 1) {
+				let colToCheck = col2;
+			}
+			if (xPos = 2) {
+				let colToCheck = col3;
+			}
+			if (xPos = 3) {
+				let colToCheck = col4;
+			}
+			if (xPos = 4) {
+				let colToCheck = col5;
+			}
+			if (xPos = 5) {
+				let colToCheck = col6;
+			}
+			if (xPos = 6) {
+				let colToCheck = col7;
+			}
+			if (xPos = 7) {
+				let colToCheck = col8;
+			}
+			if (xPos = 8) {
+				let colToCheck = col9;
+			}
+			if (xPos = 9) {
+				let colToCheck = col10;
+			}
+
+			// now we're actually checking the column
+			if (colToCheck[yPos]) {
+				return false;
+			}
+
 
 			let i = i + 1;
 		}
