@@ -409,12 +409,55 @@ class Game {
 	// move the current figure left
 	method void moveLeft() {
 		let currentPiecePosX = currentPiecePosX - 1;
+		if (~(checkBorders())) {
+			let currentPiecePosX = currentPiecePosX + 1;
+		}
 		return;
 	}
 
 	// move the current figure right
 	method void moveRight() {
 		let currentPiecePosX = currentPiecePosX + 1;
+		if (~(checkBorders())) {
+			let currentPiecePosX = currentPiecePosX - 1;
+		}
 		return;
+	}
+
+	// checks the borders. returns true of the piece is valid, false if not. a piece is
+	// valid if it is not beyond the edges of the playing field or intersects with one
+	// of the pieces of the playing field.
+	method boolean checkBorders() {
+		var Array currentOffset;
+		var int i, xPos, yPos;
+
+
+		let i = 0;
+		while (i < 4) {
+			let currentOffset = currentPiece[i];
+
+			// calculate the xPos and yPos as in displayCurrentFigure
+			let xPos = currentPiecePosX + currentOffset[0];
+
+			let yPos = currentPiecePosY + currentOffset[1];
+
+			// check if the xPos is too much to the left or right, if 
+			// that does happen, move in the opposite direction.
+			if (xPos < 0) {
+				let currentPiecePosX = currentPiecePosX + 1;
+				let xPos = xPos + 1;
+				return checkBorders();
+			}
+
+			if (xPos > 9) {
+				let currentPiecePosX = currentPiecePosX - 1;
+				let xPos = xPos - 1;
+				return checkBorders();
+			}
+
+			let i = i + 1;
+		}
+
+		return true;
 	}
 }

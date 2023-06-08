@@ -41,6 +41,17 @@ label WHILE_END1
 push constant 24576
 call Memory.peek 1
 pop local 1
+push constant 4
+call String.new 1
+push constant 110
+call String.appendChar 2
+push constant 111
+call String.appendChar 2
+push constant 110
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+pop local 2
 push local 1
 push constant 130
 eq

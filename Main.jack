@@ -38,6 +38,7 @@ class Main {
 			
 			// left: set the direction to left
 			let key = Memory.peek(24576);
+			let direction = "none";
 			if (key = 130) {
 				let direction = 130;
 			}
