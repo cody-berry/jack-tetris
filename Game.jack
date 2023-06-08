@@ -331,10 +331,28 @@ class Game {
 	// moves current piece down by one tile
 	method void moveDown() {
 		let currentPiecePosY = currentPiecePosY + 1;
+
+		// but this time, if it fails, then we set the piece in place in addition to
+		// fixing it
 		if (~(checkBorders())) {
 			let currentPiecePosY = currentPiecePosY - 1;
 		}
 		return;
+	}
+
+	// sets the current piece in place
+	method void setInPlace() {
+
+
+		// iterate through every offset in the list (there are 4)
+
+			// for every offset, set it into the list
+
+			// calculate the positions as in displayCurrentFigure
+
+			// set it into the playing field list!
+
+		// reset the current position to 4, 1
 	}
 
 	// draw the current figure
@@ -469,6 +487,9 @@ class Game {
 				let xPos = xPos - 1;
 				return checkBorders();
 			}
+
+			// if yPos is too much down, then return false. 
+
 
 			// if none of those errors are there, then we check the
 			// playing field. but we first have to check which column
