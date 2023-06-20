@@ -336,23 +336,78 @@ class Game {
 		// fixing it
 		if (~(checkBorders())) {
 			let currentPiecePosY = currentPiecePosY - 1;
+			do setInPlace();
 		}
 		return;
 	}
 
 	// sets the current piece in place
 	method void setInPlace() {
-
+		// variable definition
+		var Array currentOffset, colToSelect;
+		var int i, xPos, yPos;
 
 		// iterate through every offset in the list (there are 4)
+		let i = 0;
+		while (i < 4) {
+			// set currentOffset to the current offset we're checking
+			let currentOffset = currentPiece[i];
 
-			// for every offset, set it into the list
+			// read displayCurrentFigure for documentation
+			let xPos = currentPiecePosX + currentOffset[0];
 
-			// calculate the positions as in displayCurrentFigure
+			let yPos = currentPiecePosY + currentOffset[1];
 
 			// set it into the playing field list!
+			// but we have to figure out which column to select. read
+			// checkBorders for documentation.
+			if (xPos = 0) {
+				let colToSelect = col1;
+			}
+			if (xPos = 1) {
+				let colToSelect = col2;
+			}
+			if (xPos = 2) {
+				let colToSelect = col3;
+			}
+			if (xPos = 3) {
+				let colToSelect = col4;
+			}
+			if (xPos = 4) {
+				let colToSelect = col5;
+			}
+			if (xPos = 5) {
+				let colToSelect = col6;
+			}
+			if (xPos = 6) {
+				let colToSelect = col7;
+			}
+			if (xPos = 7) {
+				let colToSelect = col8;
+			}
+			if (xPos = 8) {
+				let colToSelect = col9;
+			}
+			if (xPos = 9) {
+				let colToSelect = col10;
+			}
+
+			// now we're actually setting the block
+			let colToSelect[yPos] = 1;
+
+
+			let i = i + 1;
+		}
 
 		// reset the current position to 4, 1
+		let currentPiecePosX = 4;
+		let currentPiecePosY = 1;
+
+		// display the game
+		do display();
+		do displayCurrentFigure();
+
+		return;
 	}
 
 	// draw the current figure
@@ -489,7 +544,9 @@ class Game {
 			}
 
 			// if yPos is too much down, then return false. 
-
+			if (yPos > 19) {
+				return false;
+			}
 
 			// if none of those errors are there, then we check the
 			// playing field. but we first have to check which column

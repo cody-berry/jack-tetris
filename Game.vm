@@ -1737,7 +1737,159 @@ push this 19
 push constant 1
 sub
 pop this 19
+push pointer 0
+call Game.setInPlace 1
+pop temp 0
 label IF_FALSE0
+push constant 0
+return
+function Game.setInPlace 5
+push argument 0
+pop pointer 0
+push constant 0
+pop local 2
+label WHILE_EXP0
+push local 2
+push constant 4
+lt
+not
+if-goto WHILE_END0
+push local 2
+push this 17
+add
+pop pointer 1
+push that 0
+pop local 0
+push this 18
+push constant 0
+push local 0
+add
+pop pointer 1
+push that 0
+add
+pop local 3
+push this 19
+push constant 1
+push local 0
+add
+pop pointer 1
+push that 0
+add
+pop local 4
+push local 3
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 3
+pop local 1
+label IF_FALSE0
+push local 3
+push constant 1
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 4
+pop local 1
+label IF_FALSE1
+push local 3
+push constant 2
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push this 5
+pop local 1
+label IF_FALSE2
+push local 3
+push constant 3
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push this 6
+pop local 1
+label IF_FALSE3
+push local 3
+push constant 4
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push this 7
+pop local 1
+label IF_FALSE4
+push local 3
+push constant 5
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push this 8
+pop local 1
+label IF_FALSE5
+push local 3
+push constant 6
+eq
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push this 9
+pop local 1
+label IF_FALSE6
+push local 3
+push constant 7
+eq
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push this 10
+pop local 1
+label IF_FALSE7
+push local 3
+push constant 8
+eq
+if-goto IF_TRUE8
+goto IF_FALSE8
+label IF_TRUE8
+push this 11
+pop local 1
+label IF_FALSE8
+push local 3
+push constant 9
+eq
+if-goto IF_TRUE9
+goto IF_FALSE9
+label IF_TRUE9
+push this 12
+pop local 1
+label IF_FALSE9
+push local 4
+push local 1
+add
+push constant 1
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 2
+push constant 1
+add
+pop local 2
+goto WHILE_EXP0
+label WHILE_END0
+push constant 4
+pop this 18
+push constant 1
+pop this 19
+push pointer 0
+call Game.display 1
+pop temp 0
+push pointer 0
+call Game.displayCurrentFigure 1
+pop temp 0
 push constant 0
 return
 function Game.displayCurrentFigure 4
@@ -2020,107 +2172,116 @@ push pointer 0
 call Game.checkBorders 1
 return
 label IF_FALSE1
-push local 2
-push constant 0
-eq
+push local 3
+push constant 19
+gt
 if-goto IF_TRUE2
 goto IF_FALSE2
 label IF_TRUE2
-push this 3
-pop local 4
+push constant 0
+return
 label IF_FALSE2
 push local 2
-push constant 1
+push constant 0
 eq
 if-goto IF_TRUE3
 goto IF_FALSE3
 label IF_TRUE3
-push this 4
+push this 3
 pop local 4
 label IF_FALSE3
 push local 2
-push constant 2
+push constant 1
 eq
 if-goto IF_TRUE4
 goto IF_FALSE4
 label IF_TRUE4
-push this 5
+push this 4
 pop local 4
 label IF_FALSE4
 push local 2
-push constant 3
+push constant 2
 eq
 if-goto IF_TRUE5
 goto IF_FALSE5
 label IF_TRUE5
-push this 6
+push this 5
 pop local 4
 label IF_FALSE5
 push local 2
-push constant 4
+push constant 3
 eq
 if-goto IF_TRUE6
 goto IF_FALSE6
 label IF_TRUE6
-push this 7
+push this 6
 pop local 4
 label IF_FALSE6
 push local 2
-push constant 5
+push constant 4
 eq
 if-goto IF_TRUE7
 goto IF_FALSE7
 label IF_TRUE7
-push this 8
+push this 7
 pop local 4
 label IF_FALSE7
 push local 2
-push constant 6
+push constant 5
 eq
 if-goto IF_TRUE8
 goto IF_FALSE8
 label IF_TRUE8
-push this 9
+push this 8
 pop local 4
 label IF_FALSE8
 push local 2
-push constant 7
+push constant 6
 eq
 if-goto IF_TRUE9
 goto IF_FALSE9
 label IF_TRUE9
-push this 10
+push this 9
 pop local 4
 label IF_FALSE9
 push local 2
-push constant 8
+push constant 7
 eq
 if-goto IF_TRUE10
 goto IF_FALSE10
 label IF_TRUE10
-push this 11
+push this 10
 pop local 4
 label IF_FALSE10
 push local 2
-push constant 9
+push constant 8
 eq
 if-goto IF_TRUE11
 goto IF_FALSE11
 label IF_TRUE11
-push this 12
+push this 11
 pop local 4
 label IF_FALSE11
+push local 2
+push constant 9
+eq
+if-goto IF_TRUE12
+goto IF_FALSE12
+label IF_TRUE12
+push this 12
+pop local 4
+label IF_FALSE12
 push local 3
 push local 4
 add
 pop pointer 1
 push that 0
-if-goto IF_TRUE12
-goto IF_FALSE12
-label IF_TRUE12
+if-goto IF_TRUE13
+goto IF_FALSE13
+label IF_TRUE13
 push constant 0
 return
-label IF_FALSE12
+label IF_FALSE13
 push local 1
 push constant 1
 add
