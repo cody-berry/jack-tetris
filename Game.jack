@@ -619,4 +619,35 @@ class Game {
 
 		return true;
 	}
+
+	method void rotateRight() {
+		var Array newPiece, offsets, newOffsets, originalPiece;
+		var int i, offsetX, offsetY;
+
+		// iterate through each offset.
+		let i = 0;
+		let newPiece = Array.new(4);
+		let originalPiece = currentPiece;
+		while (i < 4) {
+			let newOffsets = Array.new(2);
+			let offsets = currentPiece[i];
+			let offsetX = offsets[0];
+			let offsetY = offsets[1];
+
+			// set the new offset. 
+			// up rotates to right
+			let newOffsets[0] = offsetY;
+			// right rotates to down
+			let newOffsets[1] = -offsetX;
+
+			let newPiece[i] = newOffsets;
+
+			let i = i + 1;
+		}
+		let currentPiece = newPiece;
+		if (checkBorders()) {}
+		else {let currentPiece = originalPiece; do newPiece.dispose();}
+
+		return;
+	}
 }

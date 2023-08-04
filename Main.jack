@@ -58,6 +58,11 @@ class Main {
 				let direction = 133;
 			}
 
+			// period: rotate right
+			if (key = 46) {
+				do game.rotateRight();
+			}
+
 			// while the key is the same...
 			do game.display();
 			while (Memory.peek(24576) = key) {
