@@ -1,10 +1,11 @@
-☐ Display a 10x20 grid
-☐ Make a Game class
-☐ Display the 10x20 grid there
-☐ Make a playing field out of many cols, meaning making 10 cols of array length 20
+☒ Display a 10x20 grid
+☒ Make a Game class
+☒ Display the 10x20 grid there
+☒ Make a playing field out of many cols, meaning making 10 cols of array length 20
 ☐ Display a few tiles there and test display()
 ☐ Plan what each piece is and how to rotate them
 ☐ Make a piece array, then display one of the pieces on the playing field
+☐ Implement algorithm 2
 ☐ When left or right is pressed, move accordingly
 ☐ Add a check-borders function
 ☐ Add an animation count for when to move the piece down

@@ -140,198 +140,6 @@ add
 pop local 0
 goto WHILE_EXP0
 label WHILE_END0
-push constant 0
-push this 3
-add
-push constant 1
-pop temp 0
-pop pointer 1
-push temp 0
-pop that 0
-push constant 1
-push this 3
-add
-push constant 1
-pop temp 0
-pop pointer 1
-push temp 0
-pop that 0
-push constant 2
-push this 3
-add
-push constant 1
-pop temp 0
-pop pointer 1
-push temp 0
-pop that 0
-push constant 17
-push this 3
-add
-push constant 1
-pop temp 0
-pop pointer 1
-push temp 0
-pop that 0
-push constant 18
-push this 3
-add
-push constant 1
-pop temp 0
-pop pointer 1
-push temp 0
-pop that 0
-push constant 19
-push this 3
-add
-push constant 1
-pop temp 0
-pop pointer 1
-push temp 0
-pop that 0
-push constant 0
-push this 4
-add
-push constant 1
-pop temp 0
-pop pointer 1
-push temp 0
-pop that 0
-push constant 1
-push this 4
-add
-push constant 1
-pop temp 0
-pop pointer 1
-push temp 0
-pop that 0
-push constant 18
-push this 4
-add
-push constant 1
-pop temp 0
-pop pointer 1
-push temp 0
-pop that 0
-push constant 19
-push this 4
-add
-push constant 1
-pop temp 0
-pop pointer 1
-push temp 0
-pop that 0
-push constant 0
-push this 5
-add
-push constant 1
-pop temp 0
-pop pointer 1
-push temp 0
-pop that 0
-push constant 19
-push this 5
-add
-push constant 1
-pop temp 0
-pop pointer 1
-push temp 0
-pop that 0
-push constant 0
-push this 10
-add
-push constant 1
-pop temp 0
-pop pointer 1
-push temp 0
-pop that 0
-push constant 19
-push this 10
-add
-push constant 1
-pop temp 0
-pop pointer 1
-push temp 0
-pop that 0
-push constant 0
-push this 11
-add
-push constant 1
-pop temp 0
-pop pointer 1
-push temp 0
-pop that 0
-push constant 1
-push this 11
-add
-push constant 1
-pop temp 0
-pop pointer 1
-push temp 0
-pop that 0
-push constant 18
-push this 11
-add
-push constant 1
-pop temp 0
-pop pointer 1
-push temp 0
-pop that 0
-push constant 19
-push this 11
-add
-push constant 1
-pop temp 0
-pop pointer 1
-push temp 0
-pop that 0
-push constant 0
-push this 12
-add
-push constant 1
-pop temp 0
-pop pointer 1
-push temp 0
-pop that 0
-push constant 1
-push this 12
-add
-push constant 1
-pop temp 0
-pop pointer 1
-push temp 0
-pop that 0
-push constant 2
-push this 12
-add
-push constant 1
-pop temp 0
-pop pointer 1
-push temp 0
-pop that 0
-push constant 17
-push this 12
-add
-push constant 1
-pop temp 0
-pop pointer 1
-push temp 0
-pop that 0
-push constant 18
-push this 12
-add
-push constant 1
-pop temp 0
-pop pointer 1
-push temp 0
-pop that 0
-push constant 19
-push this 12
-add
-push constant 1
-pop temp 0
-pop pointer 1
-push temp 0
-pop that 0
 push constant 7
 call Array.new 1
 pop this 15
@@ -1183,7 +991,7 @@ pop temp 0
 pop pointer 1
 push temp 0
 pop that 0
-push constant 3
+push constant 0
 push this 15
 add
 pop pointer 1
@@ -1195,9 +1003,175 @@ push constant 1
 pop this 19
 push pointer 0
 return
+function Game.checkLines 1
+push argument 0
+pop pointer 0
+push constant 19
+pop local 0
+label WHILE_EXP0
+push local 0
+push constant 1
+neg
+gt
+not
+if-goto WHILE_END0
+push local 0
+push this 3
+add
+pop pointer 1
+push that 0
+push local 0
+push this 4
+add
+pop pointer 1
+push that 0
+and
+push local 0
+push this 5
+add
+pop pointer 1
+push that 0
+and
+push local 0
+push this 6
+add
+pop pointer 1
+push that 0
+and
+push local 0
+push this 7
+add
+pop pointer 1
+push that 0
+and
+push local 0
+push this 8
+add
+pop pointer 1
+push that 0
+and
+push local 0
+push this 9
+add
+pop pointer 1
+push that 0
+and
+push local 0
+push this 10
+add
+pop pointer 1
+push that 0
+and
+push local 0
+push this 11
+add
+pop pointer 1
+push that 0
+and
+push local 0
+push this 12
+add
+pop pointer 1
+push that 0
+and
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 0
+push this 3
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 0
+push this 4
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 0
+push this 5
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 0
+push this 6
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 0
+push this 7
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 0
+push this 8
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 0
+push this 9
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 0
+push this 10
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 0
+push this 11
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 0
+push this 12
+add
+push constant 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+label IF_FALSE0
+push local 0
+push constant 1
+sub
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
 function Game.display 1
 push argument 0
 pop pointer 0
+push pointer 0
+call Game.checkLines 1
+pop temp 0
 push constant 0
 not
 call Screen.setColor 1
@@ -1746,14 +1720,29 @@ return
 function Game.setInPlace 5
 push argument 0
 pop pointer 0
+label WHILE_EXP0
+push pointer 0
+call Game.checkBorders 1
+not
+if-goto WHILE_END0
+push this 19
+push constant 1
+add
+pop this 19
+goto WHILE_EXP0
+label WHILE_END0
+push this 19
+push constant 1
+sub
+pop this 19
 push constant 0
 pop local 2
-label WHILE_EXP0
+label WHILE_EXP1
 push local 2
 push constant 4
 lt
 not
-if-goto WHILE_END0
+if-goto WHILE_END1
 push local 2
 push this 17
 add
@@ -1870,6 +1859,7 @@ push local 4
 push local 1
 add
 push constant 1
+neg
 pop temp 0
 pop pointer 1
 push temp 0
@@ -1878,8 +1868,8 @@ push local 2
 push constant 1
 add
 pop local 2
-goto WHILE_EXP0
-label WHILE_END0
+goto WHILE_EXP1
+label WHILE_END1
 push constant 4
 pop this 18
 push constant 1
@@ -1890,6 +1880,14 @@ pop temp 0
 push pointer 0
 call Game.displayCurrentFigure 1
 pop temp 0
+push this 16
+push this 15
+add
+pop pointer 1
+push that 0
+pop this 17
+push constant 0
+pop this 16
 push constant 0
 return
 function Game.displayCurrentFigure 4
@@ -1983,6 +1981,19 @@ push pointer 0
 call Game.displayCurrentFigure 1
 pop temp 0
 label IF_FALSE0
+push this 16
+push constant 1
+add
+pop this 16
+push this 16
+push constant 7
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 0
+pop this 16
+label IF_FALSE1
 push constant 0
 return
 function Game.eraseCurrentFigure 4

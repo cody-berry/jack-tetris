@@ -49,6 +49,9 @@ class Main {
 			}
 
 			// up: set the piece in place
+			if (key = 131) {
+				do game.setInPlace();
+			}
 
 			// down: make the piece go faster downwards
 			if (key = 133) {

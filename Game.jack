@@ -82,32 +82,6 @@ class Game {
 			let i = i + 1;
 		}
 
-		// this creates all 4 corners just for testing display or checkBorders()
-		let col1[0] = 1;
-		let col1[1] = 1;
-		let col1[2] = 1;
-		let col1[17] = 1; 
-		let col1[18] = 1;
-		let col1[19] = 1;
-		let col2[0] = 1;
-		let col2[1] = 1;
-		let col2[18] = 1;
-		let col2[19] = 1;
-		let col3[0] = 1;
-		let col3[19] = 1;
-		let col8[0] = 1;
-		let col8[19] = 1;
-		let col9[0] = 1;
-		let col9[1] = 1;
-		let col9[18] = 1;
-		let col9[19] = 1;
-		let col10[0] = 1;
-		let col10[1] = 1;
-		let col10[2] = 1;
-		let col10[17] = 1; 
-		let col10[18] = 1;
-		let col10[19] = 1;
-
 		let piecesList = Array.new(7);
 
 		// nested arrays here are fine because we're not setting parts of it. we're
@@ -252,7 +226,7 @@ class Game {
 		let piecesList[5] = oBlock;
 		let piecesList[6] = tBlock;
 
-		let currentPiece = piecesList[3];
+		let currentPiece = piecesList[0];
 
 		let currentPiecePosX = 4;
 
@@ -261,9 +235,45 @@ class Game {
 		return this;
 	}
 
+	// checks each line and makes sure it's not full.
+	method void checkLines() {
+		var int row;
+		let row = 19;
+		// iterate through each row backwards.
+		while (row > -1) {
+			// if the line is full, clear it. 
+			if (col1[row] & 
+				col2[row] & 
+				col3[row] & 
+				col4[row] & 
+				col5[row] & 
+				col6[row] & 
+				col7[row] & 
+				col8[row] & 
+				col9[row] & 
+				col10[row]) {
+				let col1[row] = 0;
+				let col2[row] = 0;
+				let col3[row] = 0;
+				let col4[row] = 0;
+				let col5[row] = 0;
+				let col6[row] = 0;
+				let col7[row] = 0;
+				let col8[row] = 0;
+				let col9[row] = 0;
+				let col10[row] = 0;
+			}
+			let row = row - 1;
+		}
+		return;
+	}
+
 	// displays all parts of the game and handles moving down every few frames
 	method void display() {
 		var int row;
+
+		// check the lines
+		do checkLines();
 
 		// black background
 		do Screen.setColor(true);
@@ -347,6 +357,14 @@ class Game {
 		var Array currentOffset, colToSelect;
 		var int i, xPos, yPos;
 
+		// move down all the way
+		while (checkBorders()) {
+			let currentPiecePosY = currentPiecePosY + 1;
+		}
+
+		// since after the loop, we're one more down than we can be, we have to adjust up
+		let currentPiecePosY = currentPiecePosY - 1;
+
 		// iterate through every offset in the list (there are 4)
 		let i = 0;
 		while (i < 4) {
@@ -393,7 +411,7 @@ class Game {
 			}
 
 			// now we're actually setting the block
-			let colToSelect[yPos] = 1;
+			let colToSelect[yPos] = -1;
 
 
 			let i = i + 1;
@@ -406,6 +424,9 @@ class Game {
 		// display the game
 		do display();
 		do displayCurrentFigure();
+
+		let currentPiece = piecesList[nextPieceIndex];
+		let nextPieceIndex = 0;
 
 		return;
 	}
@@ -452,6 +473,11 @@ class Game {
 			do eraseCurrentFigure();
 			do moveDown();
 			do displayCurrentFigure();
+		}
+
+		let nextPieceIndex = nextPieceIndex + 1;
+		if (nextPieceIndex = 7) {
+			let nextPieceIndex = 0;
 		}
 
 		return;
