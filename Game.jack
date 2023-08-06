@@ -237,11 +237,12 @@ class Game {
 
 	// checks each line and makes sure it's not full.
 	method void checkLines() {
-		var int row;
+		var int row, linesCleared;
 		let row = 19;
+		let linesCleared = 0;
 		// iterate through each row backwards.
 		while (row > -1) {
-			// if the line is full, clear it. 
+			// if the line is full, clear it. a true value means something is in it.
 			if (col1[row] & 
 				col2[row] & 
 				col3[row] & 
@@ -252,6 +253,32 @@ class Game {
 				col8[row] & 
 				col9[row] & 
 				col10[row]) {
+				let linesCleared = linesCleared + 1; // increment the lines cleared
+				let framesUntilDownDefault = framesUntilDownDefault - 1; // speed it up
+				let framesUntilDown = framesUntilDownDefault;
+				let col1[row] = 0; // clear it
+				let col2[row] = 0;
+				let col3[row] = 0;
+				let col4[row] = 0;
+				let col5[row] = 0;
+				let col6[row] = 0;
+				let col7[row] = 0;
+				let col8[row] = 0;
+				let col9[row] = 0;
+				let col10[row] = 0;
+			} else { // otherwise, set it to the linesCleared lines below to account for lines cleared
+				let col1[row + linesCleared] = col1[row];
+				let col2[row + linesCleared] = col2[row];
+				let col3[row + linesCleared] = col3[row];
+				let col4[row + linesCleared] = col4[row];
+				let col5[row + linesCleared] = col5[row];
+				let col6[row + linesCleared] = col6[row];
+				let col7[row + linesCleared] = col7[row];
+				let col8[row + linesCleared] = col8[row];
+				let col9[row + linesCleared] = col9[row];
+				let col10[row + linesCleared] = col10[row];
+			}
+			if (linesCleared > 0) {
 				let col1[row] = 0;
 				let col2[row] = 0;
 				let col3[row] = 0;
@@ -483,6 +510,28 @@ class Game {
 		return;
 	}
 
+	method void dispose() {
+		var Array piece, block;
+		var int pieces, blocks;
+		// iterate through every piece
+		let pieces = 0;
+		while (pieces < 7) {
+			// iterate through every block in that piece
+			let blocks = 0;
+			let piece = piecesList[pieces];
+			while (blocks < 4) {
+				let block = piece[blocks];
+				do block.dispose();
+				let blocks = blocks + 1;
+			}
+			let pieces = pieces + 1;
+			do piece.dispose();
+		}
+		do piecesList.dispose();
+		do Memory.deAlloc(this);
+		return;
+	}
+
 	// erase the current figure
 	method void eraseCurrentFigure() {
 		var int i, xPos, yPos;
@@ -620,6 +669,7 @@ class Game {
 		return true;
 	}
 
+	// rotates the current piece right.
 	method void rotateRight() {
 		var Array newPiece, offsets, newOffsets, originalPiece;
 		var int i, offsetX, offsetY;
@@ -639,6 +689,38 @@ class Game {
 			let newOffsets[0] = offsetY;
 			// right rotates to down
 			let newOffsets[1] = -offsetX;
+
+			let newPiece[i] = newOffsets;
+
+			let i = i + 1;
+		}
+		let currentPiece = newPiece;
+		if (checkBorders()) {}
+		else {let currentPiece = originalPiece; do newPiece.dispose();}
+
+		return;
+	}
+
+	// rotates the current piece left.
+	method void rotateLeft() {
+		var Array newPiece, offsets, newOffsets, originalPiece;
+		var int i, offsetX, offsetY;
+
+		// iterate through each offset.
+		let i = 0;
+		let newPiece = Array.new(4);
+		let originalPiece = currentPiece;
+		while (i < 4) {
+			let newOffsets = Array.new(2);
+			let offsets = currentPiece[i];
+			let offsetX = offsets[0];
+			let offsetY = offsets[1];
+
+			// set the new offset. 
+			// up rotates to left
+			let newOffsets[0] = -offsetY;
+			// left rotates to down
+			let newOffsets[1] = offsetX;
 
 			let newPiece[i] = newOffsets;
 

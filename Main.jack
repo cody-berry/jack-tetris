@@ -5,7 +5,7 @@ class Main {
 		var String direction;
 		var int framesUntilNextMove;
 
-		let direction = "none";
+		let direction = 0;
 		let framesUntilNextMove = 7;
 
 		// Setup:
@@ -38,7 +38,7 @@ class Main {
 			
 			// left: set the direction to left
 			let key = Memory.peek(24576);
-			let direction = "none";
+			let direction = 0;
 			if (key = 130) {
 				let direction = 130;
 			}
@@ -61,6 +61,12 @@ class Main {
 			// period: rotate right
 			if (key = 46) {
 				do game.rotateRight();
+			}
+
+			// escape: reset the game
+			if (key = 140) {
+				do game.dispose();
+				let game = Game.new(10);
 			}
 
 			// while the key is the same...
