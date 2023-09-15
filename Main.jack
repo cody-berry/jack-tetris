@@ -63,6 +63,11 @@ class Main {
 				do game.rotateRight();
 			}
 
+			// comma: rotate left
+			if (key = 44) {
+				do game.rotateLeft();
+			}
+
 			// escape: reset the game
 			if (key = 140) {
 				do game.dispose();
