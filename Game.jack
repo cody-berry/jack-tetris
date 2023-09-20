@@ -26,11 +26,16 @@ class Game {
 	// handles the current piece itself.
 	field Array currentPiece;
 
+	field int currentPieceIndex;
+
 	// holds the current piece position
 	field int currentPiecePosX, currentPiecePosY;
 
 	// holds thes score
 	field int score;
+
+	// holds the amount of lines cleared
+	field int lines;
 
 	constructor Game new(int tileSizeArg) {
 		var int i;
@@ -229,11 +234,13 @@ class Game {
 		let piecesList[5] = oBlock;
 		let piecesList[6] = tBlock;
 
-		let currentPiece = copyPiece(piecesList[0]);
+		let currentPiece = copyPiece(0);
 
 		let currentPiecePosX = 4;
 
 		let currentPiecePosY = 1;
+
+		let currentPieceIndex = 0;
 
 		let score = 0;
 
@@ -246,10 +253,13 @@ class Game {
 	// [int, int],
 	// [int, int]
 	// ]
-	method Array copyPiece(Array piece) {
+	method Array copyPiece(int pieceIndex) {
+		var Array piece;
 		var Array newPiece, newPiece0, newPiece1, newPiece2, newPiece3;
 		var Array piece0, piece1, piece2, piece3;
 		let newPiece = Array.new(4);
+
+		let piece = piecesList[pieceIndex];
 
 		let newPiece0 = Array.new(2);
 		let newPiece1 = Array.new(2);
@@ -296,7 +306,7 @@ class Game {
 				col9[row] & 
 				col10[row]) {
 				let linesCleared = linesCleared + 1; // increment the lines cleared
-				let framesUntilDownDefault = framesUntilDownDefault - 1; // speed it up
+				let framesUntilDownDefault = (framesUntilDownDefault+3)/2; // speed it up
 				let framesUntilDown = framesUntilDownDefault;
 				let col1[row] = 0; // clear it
 				let col2[row] = 0;
@@ -337,12 +347,16 @@ class Game {
 
 		if (linesCleared = 1) {
 			let score = score + 100;
+			let lines = lines + 1;
 		} if (linesCleared = 2) {
 			let score = score + 300;
+			let lines = lines + 2;
 		} if (linesCleared = 3) {
 			let score = score + 700;
+			let lines = lines + 3;
 		} if (linesCleared = 4) {
 			let score = score + 1500;
+			let lines = lines + 4;
 		}
 
 		return;
@@ -438,6 +452,15 @@ class Game {
 		var int i, xPos, yPos;
 		var int aboveGroundBy;
 
+		// make sure the next piece is not the current piece
+		if (currentPieceIndex = nextPieceIndex) {
+			let nextPieceIndex = nextPieceIndex + 1;
+		}
+		if (nextPieceIndex = 7) {
+			let nextPieceIndex = 0;
+		}
+		let currentPieceIndex = nextPieceIndex;
+
 		// move down all the way
 		// in doing so, determine how much the piece is
 		// above the landing spot to reward the player
@@ -456,13 +479,22 @@ class Game {
 					if (aboveGroundBy > 7) {
 						let score = score + 1; // 4 points between 8 and 9
 						if (aboveGroundBy > 9) {
-							let score = score + 1; // 5 points between 10 and 11
-							if (aboveGroundBy > 11) { 
-								let score = score + 2; // 7 points between 12 and 15
-								if (aboveGroundBy > 15) {
-									let score = score + 2; // 9 points between 16 and 18
-									if (aboveGroundBy > 18) {
-										let score = score + 3; // 12 points for 18 and greater
+							let score = score + 1; // 5 points at 10
+							if (aboveGroundBy > 10) {
+								let score = score + 1; // 6 points at 11
+								if (aboveGroundBy > 11) {
+									let score = score + 1; // 7 points at 12
+									if (aboveGroundBy > 12) {
+										let score = score + 2; // 9 points at 13
+										if (aboveGroundBy > 13) {
+											let score = score + 3; // 12 points at 14
+											if (aboveGroundBy > 14) {
+												let score = score + 5; // 17 points at 15
+												if (aboveGroundBy > 15) {
+													let score = score + 8; // 25 points greater
+												}
+											}
+										}
 									}
 								}
 							} 
@@ -531,31 +563,90 @@ class Game {
 		let currentPiecePosX = 4;
 		let currentPiecePosY = 1;
 
+		let currentPiece = copyPiece(nextPieceIndex);
+		let nextPieceIndex = 0;
+
 		// display the game
 		do display();
 		do displayCurrentFigure();
-
-		let currentPiece = copyPiece(piecesList[nextPieceIndex]);
-		let nextPieceIndex = 0;
 
 		return;
 	}
 
 	// draw the current figure
 	method void displayCurrentFigure() {
-		var int i, xPos, yPos;
+		var int i, xPos, yPos, temp;
+		var boolean color, colorForFirstColumn;
+		var int startingPositionY, startingPositionX;
+		var int endPositionY, endPositionX;
+		var String scoreString, linesClearedString;
 		var Array currentOffset;
+
+		let scoreString = "score: ";
+		let linesClearedString = "lines cleared: ";
 
 		// display the score
 		do Output.moveCursor(0, 0);
-		do Output.printString("score: ");
+		do Output.printString(scoreString);
 		do Output.printInt(score);
+		do Output.println();
+		do Output.printString(linesClearedString);
+		do Output.printInt(lines);
+
+		do scoreString.dispose();
+		do linesClearedString.dispose();
+
+		// find the place where the piece is going to land
+		let temp = currentPiecePosY;
+		while (checkBorders()) {
+			let currentPiecePosY = currentPiecePosY + 1;
+		}
+		let currentPiecePosY = currentPiecePosY - 1;
 
 		// iterate through every offset in the list
 		let i = 0;
 
+		while (i < 4) {
+			// for every offset, display it
+			let currentOffset = currentPiece[i];
+
+			// calculate the x position, the current piece x center plus the offset
+			let xPos = currentPiecePosX + currentOffset[0];
+
+			// calculate the y position, the current piece y center plus the offset
+			let yPos = currentPiecePosY + currentOffset[1];
+
+			// display it!
+			// use a checkerboard style
+			let colorForFirstColumn = true;
+			let startingPositionX = startingX + (xPos*tileSize) + 1; 
+			let startingPositionY = startingY + (yPos*tileSize) + 1; 
+			let endPositionX = startingPositionX + tileSize - 1;
+			let endPositionY = startingPositionY + tileSize - 1;
+			let xPos = startingPositionX;
+			let yPos = startingPositionY;
+			while (yPos < endPositionY) {
+				let color = colorForFirstColumn;
+				while (xPos < endPositionX) {
+					do Screen.setColor(color);
+					do Screen.drawPixel(xPos, yPos);
+					let color = ~color;
+					let xPos = xPos + 1;
+				}
+				let colorForFirstColumn = ~colorForFirstColumn;
+				let yPos = yPos + 1;
+				let xPos = startingPositionX;
+			}
+
+			let i = i + 1;
+		}
+
+		let currentPiecePosY = temp;
+
 		// we're drawing black now
 		do Screen.setColor(true);
+
+		let i = 0;
 
 		while (i < 4) {
 			// for every offset, display it
@@ -622,14 +713,52 @@ class Game {
 
 	// erase the current figure
 	method void eraseCurrentFigure() {
-		var int i, xPos, yPos;
+		var int i, xPos, yPos, temp;
 		var Array currentOffset;
+
+		// find the place where the piece is going to land
+		let temp = currentPiecePosY;
+		while (checkBorders()) {
+			let currentPiecePosY = currentPiecePosY + 1;
+		}
+		let currentPiecePosY = currentPiecePosY - 1;
 
 		// iterate through every offset in the list
 		let i = 0;
 
 		// we're drawing white now
 		do Screen.setColor(false);
+
+		while (i < 4) {
+			// for every offset, display it
+			let currentOffset = currentPiece[i];
+
+			// calculate the x position, the current piece x center plus the offset
+			let xPos = currentPiecePosX + currentOffset[0];
+
+			// calculate the y position, the current piece y center plus the offset
+			let yPos = currentPiecePosY + currentOffset[1];
+
+			// display it!
+			do Screen.drawRectangle(
+				// the starting x position plus the tileSize times the xPos. note that it is 0-indexed
+				startingX + (xPos*tileSize) + 1, 
+				// same for y
+				startingY + (yPos*tileSize) + 1,
+				// now this time we repeat but one tileSize more
+				startingX + (xPos*tileSize) + tileSize - 1,
+				startingY + (yPos*tileSize) + tileSize - 1
+				);
+
+			let i = i + 1;
+		}
+
+		let currentPiecePosY = temp;
+
+		// iterate through every offset in the list
+		let i = 0;
+
+
 
 		while (i < 4) {
 			// for every offset, display it
