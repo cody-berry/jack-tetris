@@ -23,10 +23,10 @@ class Game {
 	// handles the next piece index. is incremented on every display. 
 	field int nextPieceIndex;
 
-	// handles the current piece itself.
-	field Array currentPiece;
+	// handles the current piece itself and the holded piece.
+	field Array currentPiece, holdedPiece;
 
-	field int currentPieceIndex;
+	field int currentPieceIndex, holdedPieceIndex;
 
 	// holds the current piece position
 	field int currentPiecePosX, currentPiecePosY;
@@ -234,6 +234,10 @@ class Game {
 		let piecesList[5] = oBlock;
 		let piecesList[6] = tBlock;
 
+		let holdedPiece = copyPiece(0);
+
+		let holdedPieceIndex = 0;
+
 		let currentPiece = copyPiece(0);
 
 		let currentPiecePosX = 4;
@@ -244,7 +248,29 @@ class Game {
 
 		let score = 0;
 
+		let lines = 0;
+
 		return this;
+	}
+
+	// swaps the current piece and the holded piece. 
+	method void holdPiece() {
+		var int indexTemp;
+
+		// swap the indices
+		let indexTemp = currentPieceIndex;
+		let currentPieceIndex = holdedPieceIndex;
+		let holdedPieceIndex = indexTemp;
+
+		// set the holded piece and current piece accordingly
+		let holdedPiece = copyPiece(holdedPieceIndex);
+		let currentPiece = copyPiece(currentPieceIndex);
+
+		// reset the position
+		let currentPiecePosX = 4;
+		let currentPiecePosY = 1;
+
+		return;
 	}
 
 	// copies any Tetris piece. Each tetris piece is in the form of: [
@@ -641,7 +667,34 @@ class Game {
 			let i = i + 1;
 		}
 
+
+
 		let currentPiecePosY = temp;
+
+		// we're drawing white now
+		do Screen.setColor(false);
+
+		// we're displaying the holded piece
+		let i = 0;
+
+		while (i < 4) {
+			// for every offset, display it
+			let currentOffset = holdedPiece[i];
+
+			// calculate the x position, the current piece x center plus the offset
+			let xPos = currentOffset[0];
+
+			// calculate the y position, the current piece y center plus the offset
+			let yPos = currentOffset[1];
+
+			let startingPositionX = startingX + (10*tileSize) + 50 + (xPos*tileSize);
+			let startingPositionY = startingY + (yPos*tileSize);
+
+			// display it!
+			do Screen.drawRectangle(startingPositionX + 1, startingPositionY + 1, startingPositionX + tileSize - 1, startingPositionY + tileSize - 1);
+
+			let i = i + 1;
+		}
 
 		// we're drawing black now
 		do Screen.setColor(true);

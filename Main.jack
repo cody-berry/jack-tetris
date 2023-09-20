@@ -74,6 +74,11 @@ class Main {
 				let game = Game.new(10);
 			}
 
+			// backslash: hold
+			if (key = 92) {
+				do game.holdPiece();
+			}
+
 			// while the key is the same...
 			do game.display();
 			while (Memory.peek(24576) = key) {

@@ -104,6 +104,16 @@ push constant 10
 call Game.new 1
 pop local 0
 label IF_FALSE6
+push local 1
+push constant 92
+eq
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push local 0
+call Game.holdPiece 1
+pop temp 0
+label IF_FALSE7
 push local 0
 call Game.display 1
 pop temp 0
@@ -120,9 +130,9 @@ pop temp 0
 push local 2
 push constant 130
 eq
-if-goto IF_TRUE7
-goto IF_FALSE7
-label IF_TRUE7
+if-goto IF_TRUE8
+goto IF_FALSE8
+label IF_TRUE8
 push local 0
 call Game.eraseCurrentFigure 1
 pop temp 0
@@ -132,13 +142,13 @@ pop temp 0
 push local 0
 call Game.displayCurrentFigure 1
 pop temp 0
-label IF_FALSE7
+label IF_FALSE8
 push local 2
 push constant 132
 eq
-if-goto IF_TRUE8
-goto IF_FALSE8
-label IF_TRUE8
+if-goto IF_TRUE9
+goto IF_FALSE9
+label IF_TRUE9
 push local 0
 call Game.eraseCurrentFigure 1
 pop temp 0
@@ -148,13 +158,13 @@ pop temp 0
 push local 0
 call Game.displayCurrentFigure 1
 pop temp 0
-label IF_FALSE8
+label IF_FALSE9
 push local 2
 push constant 133
 eq
-if-goto IF_TRUE9
-goto IF_FALSE9
-label IF_TRUE9
+if-goto IF_TRUE10
+goto IF_FALSE10
+label IF_TRUE10
 push local 0
 call Game.eraseCurrentFigure 1
 pop temp 0
@@ -164,7 +174,7 @@ pop temp 0
 push local 0
 call Game.displayCurrentFigure 1
 pop temp 0
-label IF_FALSE9
+label IF_FALSE10
 push constant 100
 call Sys.wait 1
 pop temp 0
