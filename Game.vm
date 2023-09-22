@@ -2896,6 +2896,79 @@ add
 pop local 0
 goto WHILE_EXP5
 label WHILE_END5
+push this 1
+push this 21
+push this 0
+call Math.multiply 2
+add
+push constant 2
+add
+pop local 7
+push this 2
+push this 22
+push this 0
+call Math.multiply 2
+add
+push constant 2
+add
+pop local 6
+push local 7
+push this 0
+add
+push constant 3
+sub
+pop local 9
+push local 6
+push this 0
+add
+push constant 3
+sub
+pop local 8
+push local 7
+pop local 1
+push local 6
+pop local 2
+label WHILE_EXP6
+push local 2
+push local 8
+lt
+not
+if-goto WHILE_END6
+push local 5
+pop local 4
+label WHILE_EXP7
+push local 1
+push local 9
+lt
+not
+if-goto WHILE_END7
+push local 4
+call Screen.setColor 1
+pop temp 0
+push local 1
+push local 2
+call Screen.drawPixel 2
+pop temp 0
+push local 4
+not
+pop local 4
+push local 1
+push constant 1
+add
+pop local 1
+goto WHILE_EXP7
+label WHILE_END7
+push local 5
+not
+pop local 5
+push local 2
+push constant 1
+add
+pop local 2
+push local 7
+pop local 1
+goto WHILE_EXP6
+label WHILE_END6
 push this 14
 push constant 1
 sub
@@ -2990,9 +3063,43 @@ call Memory.deAlloc 1
 pop temp 0
 push constant 0
 return
-function Game.eraseCurrentFigure 5
+function Game.eraseCurrentFigure 9
 push argument 0
 pop pointer 0
+push this 1
+push this 21
+push this 0
+call Math.multiply 2
+add
+push constant 2
+add
+pop local 4
+push this 2
+push this 22
+push this 0
+call Math.multiply 2
+add
+push constant 2
+add
+pop local 5
+push local 4
+push this 0
+add
+push constant 4
+sub
+pop local 6
+push local 5
+push this 0
+add
+push constant 4
+sub
+pop local 7
+push local 4
+push local 5
+push local 6
+push local 7
+call Screen.drawRectangle 4
+pop temp 0
 push this 22
 pop local 3
 label WHILE_EXP0
@@ -3026,10 +3133,10 @@ push this 17
 add
 pop pointer 1
 push that 0
-pop local 4
+pop local 8
 push this 21
 push constant 0
-push local 4
+push local 8
 add
 pop pointer 1
 push that 0
@@ -3037,7 +3144,7 @@ add
 pop local 1
 push this 22
 push constant 1
-push local 4
+push local 8
 add
 pop pointer 1
 push that 0
@@ -3098,10 +3205,10 @@ push this 17
 add
 pop pointer 1
 push that 0
-pop local 4
+pop local 8
 push this 21
 push constant 0
-push local 4
+push local 8
 add
 pop pointer 1
 push that 0
@@ -3109,7 +3216,7 @@ add
 pop local 1
 push this 22
 push constant 1
-push local 4
+push local 8
 add
 pop pointer 1
 push that 0

@@ -104,7 +104,7 @@ class Game {
 		let tBlock = Array.new(4);
 
 		// {piece}Block{num} means the x and y diff between the center
-		// of the piece and the {num}ᵗʰ block of {piece}.
+		// of the {piece} block and the {num}ᵗʰ block of the {piece} block.
 		let iBlock1 = Array.new(2);
 		let iBlock2 = Array.new(2);
 		let iBlock3 = Array.new(2);
@@ -725,6 +725,26 @@ class Game {
 			let i = i + 1;
 		}
 
+		// display the center of rotation
+		let startingPositionX = startingX + (currentPiecePosX*tileSize) + 2; 
+		let startingPositionY = startingY + (currentPiecePosY*tileSize) + 2; 
+		let endPositionX = startingPositionX + tileSize - 3;
+		let endPositionY = startingPositionY + tileSize - 3;
+		let xPos = startingPositionX;
+		let yPos = startingPositionY;
+		while (yPos < endPositionY) {
+			let color = colorForFirstColumn;
+			while (xPos < endPositionX) {
+				do Screen.setColor(color);
+				do Screen.drawPixel(xPos, yPos);
+				let color = ~color;
+				let xPos = xPos + 1;
+			}
+			let colorForFirstColumn = ~colorForFirstColumn;
+			let yPos = yPos + 1;
+			let xPos = startingPositionX;
+		}
+
 		let framesUntilDown = framesUntilDown - 1;
 
 		if (framesUntilDown < 0) {
@@ -767,7 +787,18 @@ class Game {
 	// erase the current figure
 	method void eraseCurrentFigure() {
 		var int i, xPos, yPos, temp;
+		var int startingPositionX, startingPositionY;
+		var int endPositionX, endPositionY;
 		var Array currentOffset;
+
+		// center of rotation
+		// display the center of rotation
+		let startingPositionX = startingX + (currentPiecePosX*tileSize) + 2; 
+		let startingPositionY = startingY + (currentPiecePosY*tileSize) + 2; 
+		let endPositionX = startingPositionX + tileSize - 4;
+		let endPositionY = startingPositionY + tileSize - 4;
+		// display it!
+		do Screen.drawRectangle(startingPositionX, startingPositionY, endPositionX, endPositionY);
 
 		// find the place where the piece is going to land
 		let temp = currentPiecePosY;
@@ -811,8 +842,6 @@ class Game {
 		// iterate through every offset in the list
 		let i = 0;
 
-
-
 		while (i < 4) {
 			// for every offset, display it
 			let currentOffset = currentPiece[i];
@@ -836,6 +865,8 @@ class Game {
 
 			let i = i + 1;
 		}
+
+
 		return;
 	}
 
