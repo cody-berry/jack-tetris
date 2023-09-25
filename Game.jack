@@ -391,13 +391,64 @@ class Game {
 	// displays all parts of the game and handles moving down every few frames
 	method void display() {
 		var int row;
+		var String scoreString, linesClearedString;
+		var String string;
 
 		// check the lines
 		do checkLines();
 
 		// black background
 		do Screen.setColor(true);
-		do Screen.drawRectangle(0, 0, 511, 255);
+		do Screen.drawRectangle(192, 0, 511, 255);
+
+		// title + documentation
+		do Output.moveCursor(0, 0);
+		let string = "TETRIS";
+		do Output.printString(string);
+		do string.dispose();
+		do Output.println();
+		let string = "left + hold: move left";
+		do Output.printString(string);
+		do string.dispose();
+		do Output.println();
+		let string = "right + hold: move right";
+		do Output.printString(string);
+		do string.dispose();
+		do Output.println();
+		let string = "down + hold: accelerate";
+		do Output.printString(string);
+		do string.dispose();
+		do Output.println();
+		let string = "up: set piece instantly";
+		do Output.printString(string);
+		do string.dispose();
+		do Output.println();
+		let string = "comma: rotate left";
+		do Output.printString(string);
+		do string.dispose();
+		do Output.println();
+		let string = "period: rotate right";
+		do Output.printString(string);
+		do string.dispose();
+		do Output.println();
+		let string = "backslash: hold piece";
+		do Output.printString(string);
+		do string.dispose();
+		do Output.println();
+
+		let scoreString = "score: ";
+		let linesClearedString = "lines cleared: ";
+
+		// display the score
+		do Output.moveCursor(21, 0);
+		do Output.printString(scoreString);
+		do Output.printInt(score);
+		do Output.println();
+		do Output.printString(linesClearedString);
+		do Output.printInt(lines);
+
+		do scoreString.dispose();
+		do linesClearedString.dispose();
 
 		// outline of the grid: displays a little bit over where it's supposed to start at,
 		// startingX, startingY, to a little bit over that, with more tileSizes and a 
@@ -605,22 +656,7 @@ class Game {
 		var boolean color, colorForFirstColumn;
 		var int startingPositionY, startingPositionX;
 		var int endPositionY, endPositionX;
-		var String scoreString, linesClearedString;
 		var Array currentOffset;
-
-		let scoreString = "score: ";
-		let linesClearedString = "lines cleared: ";
-
-		// display the score
-		do Output.moveCursor(0, 0);
-		do Output.printString(scoreString);
-		do Output.printInt(score);
-		do Output.println();
-		do Output.printString(linesClearedString);
-		do Output.printInt(lines);
-
-		do scoreString.dispose();
-		do linesClearedString.dispose();
 
 		// find the place where the piece is going to land
 		let temp = currentPiecePosY;
